@@ -1,4 +1,5 @@
 import type { ReactElement } from "react"
+import { TwitterTweetEmbed } from "react-twitter-embed"
 interface cardProps {
     title : string,
     type : string,
@@ -6,8 +7,13 @@ interface cardProps {
     link : string
 }
 export function Card(props : cardProps){
+    function getId(link : string) :string {
+        const match = link.match(/status\/(\d+)/);
+        if(!(match?.[1]))return "";
+        return match?.[1];
+    }
     return <div>
-        <div className="p-4 bg-white rounded-md border-gray-200  max-w-82 border">
+        <div className="p-4 bg-white rounded-md border-gray-200 min-w-82 max-w-82 border">
                <div className="flex justify-between pb-3">
                     <div className="flex items-center">
                     <div >
@@ -25,9 +31,7 @@ export function Card(props : cardProps){
                     </div>
                </div>
                 {props.type === "youtube" && <iframe className="w-full h-64 rounded-md" allowFullScreen src={props.link.replace("watch","embed").replace("?v=","/")}/>}
-                {props.type === "twitter" && <blockquote className="twitter-tweet">
-                    <a href = {props.link.replace("x.com","twitter.com")} />
-                    </blockquote>}
+                {props.type === "twitter" && <TwitterTweetEmbed tweetId={getId(props.link)}/>}
         </div>
     </div>
 }

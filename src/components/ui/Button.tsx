@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 export interface ButtonInterface{
-    variant : "primary" | "secondary",
+    variant : "primary" | "secondary" | "twit" | "you",
     text : string,
     size : "sm" | "md" | "lg",
     startIcon : ReactElement,
@@ -13,11 +13,13 @@ const sizeStyles = {
     "sm": "px-2 py-1 text-sm rounded-sm",
 }
 const variantStyle = {
-    "primary" : "bg-violet-500 text-gray-50",
-    "secondary" : "bg-orange-400 text-gray-50"
+    "primary" : "bg-violet-500 text-gray-50 curson-pointer hover",
+    "secondary" : "bg-orange-400 text-gray-50 curson-pointer hover",
+    "twit" : "bg-blue-500 text-gray-50 cursor-pointer hover",
+    "you" : "bg-red-500 text-gray-50 cursor-pointer hover"
 }
 export function Button(props: ButtonInterface) {
-    return <button className={`${sizeStyles[props.size]} ${variantStyle[props.variant]}`}>
+    return <button onClick = {props.onClick} className={`${sizeStyles[props.size]} ${variantStyle[props.variant]}`}>
         <div className="flex items-center">
             <span className="text-xs">
                 {props.startIcon}
